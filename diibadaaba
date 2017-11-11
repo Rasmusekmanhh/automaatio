@@ -1,0 +1,18 @@
+$tscript = <<TSCRIPT
+apt update
+apt install -y puppet
+echo "192.168.43.138 master" |sudo tee --append /etc/hosts
+echo "[agent]"|sudo tee --append /etc/puppet/puppet.conf
+echo "server = master"|sudo tee --append /etc/puppet/puppet.conf
+puppet agent --enable
+service puppet restart
+TSCRIPT
+
+
+Vagrant.configure(2) do |config|
+ config.vm.box = "bento/ubuntu-16.04"
+ config.vm.provision "shell", inline: $tscript
+
+ config.vm.define "slave01" do |slave01|
+   slave01.vm.hostname = "slave01"
+ end
