@@ -1,7 +1,7 @@
 $tscript = <<TSCRIPT
 apt update
 apt install -y puppet
-echo "192.168.43.138 master" |sudo tee --append /etc/hosts
+echo "tähän koneen ip osoite ja masterin hostname esim. master" |sudo tee --append /etc/hosts
 echo "[agent]"|sudo tee --append /etc/puppet/puppet.conf
 echo "server = master"|sudo tee --append /etc/puppet/puppet.conf
 puppet agent --enable
